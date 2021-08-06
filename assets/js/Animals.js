@@ -1,5 +1,6 @@
 "use strict";
 
+
 import { Animal } from "./Animal.js";
 
 export class Leon extends Animal {

@@ -16,6 +16,8 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./Animals.js";
   const previewAnimalElement = document.getElementById("preview");
   const btnRegistrarElement = document.getElementById("btnRegistrar");
 
+  const AnimalCards = [];
+
   nombreAnimalElement.addEventListener("change", () => {
     // console.log(nombreAnimalElement.value);
     const animalElegido = nombreAnimalElement.value;
@@ -33,10 +35,51 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./Animals.js";
   });
 
   btnRegistrarElement.addEventListener("click", () => {
-    console.log(
-      nombreAnimalElement.value,
-      edadAnimalElement.value,
-      comentariosAnimalElement.value
+    const nombreAnimal = nombreAnimalElement.value;
+    const edadAnimal = edadAnimalElement.value;
+    const comentariosAnimal = comentariosAnimalElement.value;
+
+    const animalEncontrado = Animales.find(
+      (animal) => animal.name === nombreAnimal
     );
+
+    const params = [
+      nombreAnimal, 
+              edadAnimal, 
+              animalEncontrado.imagen, 
+              comentariosAnimal, 
+              animalEncontrado.sonido
+    ];
+
+    switch (nombreAnimal) {
+      case "Leon":
+        AnimalCards.push(
+            new Leon(...params);)
+        break;
+
+        case "Lobo":
+        AnimalCards.push(
+            new Lobo(...params);)
+        break;
+
+        case "Oso":
+        AnimalCards.push(
+            new Oso(...params);)
+        break;
+
+        case "Serpiente":
+        AnimalCards.push(
+            new Serpiente(...params);)
+        break;
+
+        case "Aguila":
+        AnimalCards.push(
+            new Aguila(...params);)
+        break;
+      }
+    console.log(AnimalCards);
+
+    render();
   });
+   
 })();

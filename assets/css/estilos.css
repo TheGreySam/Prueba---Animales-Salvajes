@@ -48,3 +48,7 @@ body {
     max-width: 85% !important;
 }
 
+.img-small {
+  width: 100px;
+  height: 200px;
+}

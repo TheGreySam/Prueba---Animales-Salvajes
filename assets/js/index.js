@@ -1,5 +1,6 @@
 "use strict";
 
+import { Animal } from "./Animal.js";
 import { Leon, Lobo, Oso, Serpiente, Aguila } from "./Animals.js";
 
 // import * as Animals from "./Animals.js";
@@ -15,6 +16,9 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./Animals.js";
 
   const previewAnimalElement = document.getElementById("preview");
   const btnRegistrarElement = document.getElementById("btnRegistrar");
+
+  const animalesContainerElement = document.getElementById("Animales");
+
 
   const AnimalCards = [];
 
@@ -54,32 +58,87 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./Animals.js";
     switch (nombreAnimal) {
       case "Leon":
         AnimalCards.push(
-            new Leon(...params);)
+            new Leon(...params));
         break;
 
         case "Lobo":
         AnimalCards.push(
-            new Lobo(...params);)
+            new Lobo(...params));
         break;
 
         case "Oso":
         AnimalCards.push(
-            new Oso(...params);)
+            new Oso(...params));
         break;
 
         case "Serpiente":
         AnimalCards.push(
-            new Serpiente(...params);)
+            new Serpiente(...params));
         break;
 
         case "Aguila":
         AnimalCards.push(
-            new Aguila(...params);)
+            new Aguila(...params));
         break;
-      }
-    console.log(AnimalCards);
+      }});
+    
 
-    render();
-  });
+    function render() {
+      AnimalCards.forEach(animal => {
+        const DIVContainer = document.createElement("div");
+        const IMGImagen = document.createElement("img");
+        const DIVCardButton = document.createElement("div");
+
+        DIVContainer.classList.add("card");
+
+        IMGImagen.setAttribute("src", `/assets/imgs/${animal.Img}`);
+        IMGImagen.classList.addEventListener("img-small");
+
+        DIVCardButton.classList.add("card-footer", "p-0");
+
+        DIVCardButton.innerHTML = `
+        <button class="btn btn-primary btn-block">
+        <img src="/assets/imgs/audio.svg" style="width: 10px" />
+        </button>
+        `;
+
+        IMGImagen.addEventListener("click", () => {
+          console.log("click imagen => ", animal);
+          $("#modal").modal("show");
+
+          const modalBodyElement = document.querySelector("#modal .modal-body");
+
+          modalBodyElement.innerHTML = `
+          <img src="/assets/imgs/${animal.Img}" />
+          <ul>
+            <li>Nombre: ${animal.Nombre}</li>
+            <li>Edad: ${animal.Edad}</li>
+            <li>Comentarios: ${animal.Comentarios}</li>
+            `;
+        });
+
+        DIVCardButton.addEventListener("click", () => {
+          console.log("click!", animal);
+          switch(animal.Nombre) {
+            case "Leon": animal.Rugir();
+            break;
+            case "Lobo": animal.Aullar();
+            break;
+            case "Oso": animal.Gruñir();
+            break;
+            case "Serpiente": animal.Sisear();
+            break;
+            case "Aguila": animal.Chillar();
+            break;
+          }
+        });
+
+        DIVContainer.appendChild(IMGImagen);
+        DIVContainer.appendChild(DIVCardButton);
+
+        animalesContainerElement.appendChild(DIVContainer);
+      });
+    
+  }
    
 })();

@@ -45,6 +45,4 @@ export class Animal {
     player.load();
     player.play();
   }
-
-
 }
